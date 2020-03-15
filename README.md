@@ -1,5 +1,5 @@
 # TriggerExecutionTasks
-Trigger execution of tasks.dll from C# calling embedded JavaScript
+Trigger execution of tasks.dll from C# calling embedded JavaScript, both files must be in same folder.
 
 C# code, reverse shell
 Compile: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /platform:anycpu /r:System.Management.Automation.dll /target:library /unsafe tasks.cs
